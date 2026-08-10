@@ -1,101 +1,156 @@
-<!DOCTYPE HTML>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-  <title>Klemen Kotar</title>
-  
-  <meta name="author" content="Klemen Kotar">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <link rel="stylesheet" type="text/css" href="stylesheet.css">
-  <link rel="icon" type="image/png" href="images/seal_icon.png">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- resolve the theme before first paint so there's no flash -->
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('theme');
+      var theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+<title>Klemen Kotar — world models & robotics</title>
+<meta name="description" content="Klemen Kotar is a CS PhD student at Stanford's NeuroAI Lab building world models that learn physical structure from raw video — with an eye toward robotics.">
+<meta property="og:title" content="Klemen Kotar">
+<meta property="og:description" content="PhD student at Stanford · world models & robotics. Come meet the robot.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/profile.jpg">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M28 18 Q20 4 10 6" stroke="%232b2e36" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M72 18 Q80 4 90 6" stroke="%232b2e36" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="9" cy="6" r="6" fill="%23f6f1e7"/><circle cx="91" cy="6" r="6" fill="%23f6f1e7"/><rect x="6" y="18" width="88" height="70" rx="14" fill="%23ff8f3f" stroke="%232b2e36" stroke-width="4"/><rect x="20" y="35" width="60" height="34" rx="13" fill="%23171a21"/><rect x="33" y="42" width="10" height="19" rx="5" fill="%238be9ff"/><rect x="57" y="42" width="10" height="19" rx="5" fill="%238be9ff"/></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- async font CSS: never blocks first paint, even if the font host is unreachable -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="css/style.css">
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js" } }</script>
+<link rel="modulepreload" href="js/scene.js">
+<link rel="modulepreload" href="js/robot.js">
+<link rel="modulepreload" href="vendor/three.module.min.js">
+<link rel="modulepreload" href="vendor/three.core.min.js">
+<link rel="modulepreload" href="vendor/RoundedBoxGeometry.js">
 </head>
-
 <body>
-  <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-    <tr style="padding:0px">
-      <td style="padding:0px">
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr style="padding:0px">
-            <td style="padding:2.5%;width:63%;vertical-align:middle">
-              <p style="text-align:center">
-                <name>Klemen Kotar</name>
-              </p>
-              <p>I am a Predoctoral Young Investigator at the <a href="https://allenai.org/">Allen Institute for AI</a>, where I work on Embodied AI, Computer Vision and Reinforcment Learning.
-              </p>
-              <p style="text-align:center">
-                <a href="mailto:klemenk@allenai.org">Email</a> &nbsp/&nbsp
-                <!-- <a href="data/KlemenKotar-CV.pdf">CV</a> &nbsp/&nbsp -->
-                <a href="https://www.semanticscholar.org/author/Klemen-Kotar/1914920829">Semantic Scholar</a> &nbsp/&nbsp
-                <a href="https://twitter.com/KlemenKotar">Twitter</a> &nbsp/&nbsp
-                <a href="https://github.com/klemenkotar">Github</a>
-              </p>
-            </td>
-            <td style="padding:2.5%;width:40%;max-width:40%">
-              <a href="images/KlemenKotar.png"><img style="width:100%;max-width:100%" alt="profile photo" src="images/KlemenKotar.png" class="hoverZoomLink"></a>
-            </td>
-          </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>Research</heading>
-              <p>
-                I am interested in endowing embodied agents with the ability to reason about the world around them,through  physical  scene  understanding  and  continually  improve  their  model  of  theworld through lifelong learning.
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
 
-          <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <img src="images/ContrastingContrastivePipelines.png" alt="clean-usnob" width="160" height="160">
-            </td>
-            <td width="75%" valign="middle">
-              <a href="https://arxiv.org/abs/2103.14005">
-                <papertitle>Contrasting Contrastive Self-Supervised Representation Learning Pipelines</papertitle>
-              </a>
-              <br>
-              <strong>Klemen Kotar</strong>, <a href="http://www.gabrielilharco.com/">Gabriel Ilharco</a>, <a href="https://people.csail.mit.edu/ludwigs/">Ludwig Schmidt</a>, <a href="https://ehsanik.github.io/">Kiana Ehsani</a>, <a href="https://www.roozbehm.info/">Roozbeh Mottaghi</a>
-              <br>
-              <em>ICCV</em>, 2021
-              <p>We conduct over 700 experiments to analyze the effects of using various pre-trianing datasets, and self supervised reinforcment learning pipelines, on the final performance of computer vision encoders on a variety of end tasks.</p>
-              <p><a href="https://towardsdatascience.com/contrasting-contrastive-learning-approaches-c3eab8a4728c">Blog Post</a>, <a href="https://github.com/allenai/ViRB">Github</a></p>
-            </td>
-          </tr>
+<!-- SVG icon sprite -->
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-mail" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 7.9L4.2 6.3a.5.5 0 0 0-.2.4v.5l8 5.4 8-5.4v-.5a.5.5 0 0 0-.2-.4L12 11.9z"/></symbol>
+  <symbol id="i-twitter" viewBox="0 0 24 24"><path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3l-4.9-6.4L6.4 22H3.3l7.3-8.3L2.8 2h6.4l4.4 5.9L18.9 2zm-1.1 18.1h1.7L7.1 3.7H5.3l12.5 16.4z"/></symbol>
+  <symbol id="i-scholar" viewBox="0 0 24 24"><path d="M12 3 1 9l4 2.2V17c0 .6 3.1 3 7 3s7-2.4 7-3v-5.8l2-1.1V17h2V9L12 3zm0 2.3L18.9 9 12 12.7 5.1 9 12 5.3zM7 12.9l5 2.7 5-2.7v3.6c-.6.6-2.6 1.5-5 1.5s-4.4-.9-5-1.5v-3.6z"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 2.9.8.1-.6.4-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7 0-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.2 8.3h4.6V22H.2V8.3zm7.6 0h4.4v1.9h.1c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.5 3.1 5.5 7V22h-4.6v-6.5c0-1.6 0-3.6-2.2-3.6s-2.6 1.7-2.6 3.5V22H7.8V8.3z"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a1 1 0 0 1 1.05 1.4 6.5 6.5 0 0 0 8.35 8.35A1 1 0 0 1 21 12.8z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-14a1 1 0 0 1 1 1v1.5a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1zm0 15a1 1 0 0 1 1 1v1.5a1 1 0 1 1-2 0V19a1 1 0 0 1 1-1zM4.5 11a1 1 0 1 1 0 2H3a1 1 0 1 1 0-2h1.5zm16.5 0a1 1 0 1 1 0 2h-1.5a1 1 0 1 1 0-2H21zM5.6 5.6a1 1 0 0 1 1.4 0l1 1a1 1 0 0 1-1.4 1.4l-1-1a1 1 0 0 1 0-1.4zm10.4 10.4a1 1 0 0 1 1.4 0l1 1a1 1 0 0 1-1.4 1.4l-1-1a1 1 0 0 1 0-1.4zm2.4-10.4a1 1 0 0 1 0 1.4l-1 1a1 1 0 1 1-1.4-1.4l1-1a1 1 0 0 1 1.4 0zM8 16a1 1 0 0 1 0 1.4l-1 1a1 1 0 0 1-1.4-1.4l1-1a1 1 0 0 1 1.4 0z"/></symbol>
+</svg>
 
-          <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <img src="images/AllenAct.png" alt="clean-usnob" width="160" height="160">
-            </td>
-            <td width="75%" valign="middle">
-              <a href="https://arxiv.org/abs/2008.12760">
-                <papertitle>AllenAct: A Framework for Embodied AI Research</papertitle>
-              </a>
-              <br>
-              <a href="https://lucaweihs.github.io/">Luca Weihs*</a>, <a href="http://jordisalvador-image.blogspot.com/">Jordi Salvador*</a>, <strong>Klemen Kotar*</strong>, <a href="https://unnat.github.io/">Unnat Jain</a>, <a href="https://homes.cs.washington.edu/~khzeng/">Kuo-Hao Zeng</a>, <a href="http://www.roozbehm.info/">Roozbeh Mottaghi</a>, <a href="https://anikem.github.io/">Aniruddha Kembhavi</a>
-              <br>
-              <em>Techical Paper</em>, 2020
-              <p>We introduce a new library and framework for conducing reinforcment learning experiments in PyTorch. By providing many built-in training algorithms and utilities and allowing for easy expansion, we hope to reduce the developement overhead and improve consistency of results across projects.</p>
-              <p><a href="https://allenact.org/">Website</a>, <a href="https://github.com/allenai/allenact">Github</a></p>
-            </td>
-          </tr>
+<button id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark">
+  <svg class="ic-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+  <svg class="ic-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+</button>
 
-        </tbody></table>
+<nav id="navbar" class="hidden" aria-label="Site">
+  <a class="nav-logo" href="#" data-goto="home">
+    <img src="assets/profile.jpg" alt="">
+    <span>Klemen Kotar</span>
+  </a>
+  <button data-goto="home">Home</button>
+  <button data-goto="papers">Papers</button>
+  <button data-goto="blog">Blog</button>
+  <button data-goto="about">About</button>
+  <button data-goto="collabs">Collaborators</button>
+  <span class="nav-sep"></span>
+  <span class="nav-icons">
+    <a href="https://x.com/KlemenKotar" target="_blank" rel="noopener" aria-label="Twitter / X"><svg><use href="#i-twitter"/></svg></a>
+    <a href="https://scholar.google.com/citations?user=yIuzOOMAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar"><svg><use href="#i-scholar"/></svg></a>
+    <a href="https://github.com/klemenkotar" target="_blank" rel="noopener" aria-label="GitHub"><svg><use href="#i-github"/></svg></a>
+  </span>
+</nav>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr>
-            <td style="padding:0px">
-              <br>
-              <p style="text-align:right;font-size:small;">
-                <a href="https://github.com/jonbarron/jonbarron_website">Website Template</a>
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-      </td>
-    </tr>
-  </table>
+<div id="viewport">
+  <div id="world">
+    <svg id="roads"></svg>
+    <canvas id="treads"></canvas>
+
+    <!-- HOME -->
+    <div class="hero" id="hero">
+      <div class="hero-top">
+        <img class="hero-pic" src="assets/profile.jpg" alt="Klemen Kotar" fetchpriority="high">
+        <div>
+          <h1>Hi, I'm Klemen <span class="wave">👋</span></h1>
+          <div class="tagline">
+            <span>world models · robotics</span>
+          </div>
+        </div>
+      </div>
+      <p>I'm a Computer Science PhD candidate in the <a href="https://neuroailab.stanford.edu" target="_blank" rel="noopener">Stanford NeuroAI Lab</a>, advised by <a href="https://stanford.edu/~yamins/" target="_blank" rel="noopener">Dan Yamins</a>. I also work with <a href="https://jiajunwu.com" target="_blank" rel="noopener">Jiajun Wu</a> and the <a href="https://cogai.stanford.edu" target="_blank" rel="noopener">CogAI Lab</a>. I build <b>AR world models</b> that learn the physical structure of the world from raw video and can be prompted to perceive, predict, and act. Check out the <a href="https://neuroailab.github.io/psi-website/" target="_blank" rel="noopener">PSI series</a>!</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" data-goto="papers">Papers <span class="arrow">→</span></button>
+        <button class="btn btn-secondary" data-goto="blog">Blog <span class="arrow">→</span></button>
+        <button class="btn btn-secondary" data-goto="about">About <span class="arrow">→</span></button>
+        <button class="btn btn-secondary" data-goto="collabs">Collaborators <span class="arrow">→</span></button>
+        <span class="hero-socials">
+          <a href="mailto:klemenk@stanford.edu" aria-label="Email"><svg><use href="#i-mail"/></svg></a>
+          <a href="https://x.com/KlemenKotar" target="_blank" rel="noopener" aria-label="Twitter / X"><svg><use href="#i-twitter"/></svg></a>
+          <a href="https://scholar.google.com/citations?user=yIuzOOMAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar"><svg><use href="#i-scholar"/></svg></a>
+          <a href="https://github.com/klemenkotar" target="_blank" rel="noopener" aria-label="GitHub"><svg><use href="#i-github"/></svg></a>
+          <a href="https://www.linkedin.com/in/klemen-kotar-06028ba8/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg><use href="#i-linkedin"/></svg></a>
+        </span>
+      </div>
+    </div>
+    <div class="hero-hint" id="hero-hint">psst — hit a button and I’ll drive you there&nbsp;🤖</div>
+
+    <!-- ABOUT -->
+    <div class="section-header" id="about-header">
+      <h2>About</h2>
+    </div>
+    <div class="cards" id="about-list"></div>
+
+    <!-- PAPERS -->
+    <div class="section-header" id="papers-header">
+      <h2>Papers</h2>
+      <span class="count" id="papers-count"></span>
+      <span class="sub">a selection · hover one and the robot reads it with you · * equal contribution · <a href="https://scholar.google.com/citations?user=yIuzOOMAAAAJ" target="_blank" rel="noopener">full list on Scholar ↗</a></span>
+    </div>
+    <div class="cards" id="papers-list"></div>
+
+    <!-- BLOG -->
+    <div class="section-header" id="blog-header">
+      <h2>Blog</h2>
+      <span class="count" id="blog-count"></span>
+      <span class="sub">Ψ-talk · notes from the PSI project</span>
+    </div>
+    <div class="cards" id="blog-list"></div>
+
+    <!-- COLLABORATORS -->
+    <div class="section-header" id="collabs-header">
+      <h2>Collaborators</h2>
+    </div>
+    <div id="collabs-list"></div>
+
+    <div id="world-footer">© 2026 Klemen Kotar · built with an unreasonable amount of care for one small robot</div>
+  </div>
+</div>
+
+<canvas id="robot-canvas" aria-hidden="true"></canvas>
+<div id="bubble" role="presentation"></div>
+
+<noscript>
+  <div class="ns"><div>
+    <h1>Klemen Kotar</h1>
+    <p>PhD student at Stanford (NeuroAI Lab, advised by Dan Yamins) working on world models and robotics.
+       This site is much more fun with JavaScript — there's a robot — but here are the essentials:</p>
+    <ul>
+      <li><a href="https://scholar.google.com/citations?user=yIuzOOMAAAAJ">Google Scholar</a></li>
+      <li><a href="https://neuroailab.github.io/psi-website/">PSI project</a> · <a href="https://neuroailab.github.io/psi-website/blog.html">Ψ-talk blog</a></li>
+      <li><a href="https://x.com/KlemenKotar">Twitter / X</a> · <a href="https://github.com/klemenkotar">GitHub</a></li>
+      <li><a href="mailto:klemenk@stanford.edu">klemenk@stanford.edu</a></li>
+    </ul>
+  </div></div>
+</noscript>
+
+<script type="module" src="js/main.js"></script>
 </body>
-
 </html>
