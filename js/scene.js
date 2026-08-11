@@ -11,7 +11,7 @@ const CAM_DIST = 16;
 const CAM_FOV = 22;
 const CAM_ELEV = 0.62;            // rad above the ground plane
 const ROBOT_PX = 148;             // on-screen robot height at map zoom 1 (desktop)
-const ROBOT_PX_COMPACT = 116;     // smaller on phones so it fits the side lane
+const ROBOT_PX_COMPACT = 66;      // much smaller on phones so it doesn't dominate
 
 export class RobotScene {
   constructor(canvas) {

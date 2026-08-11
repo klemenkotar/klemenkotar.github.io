@@ -176,7 +176,7 @@ function renderCollabClump(w) {
           </${tag}>`;
         }).join('')}
       </div>
-      <figcaption class="fig-caption"><b>Figure 1.</b> My collaboration universe. Each bubble is a co-author and links to their page; bubble area grows with the number of papers we share, and black outlines mark my trainees.</figcaption>
+      <figcaption class="fig-caption">My collaboration universe — each bubble is a co-author (and links to their page), sized by how many papers we share. Trainees are outlined.</figcaption>
     </figure>`;
   list.style.height = '';                            // natural flow height (panel + caption)
 }
@@ -239,18 +239,16 @@ function layout() {
   L.compact = compact;
   if (compact) {
     // five columns: [about][blog][home][papers][collabs]
-    L.heroW = Math.min(vw - 28, 560);
-    L.worldW = Math.round(vw * 5);
-    L.homeX = Math.round(vw * 2.5);
     L.lane = 100;                                 // robot lane to the left of the lists
-    L.papersW = Math.min(vw - 32 - L.lane, 560);
-    L.papersLeft = Math.round(vw * 3 + 14 + L.lane);
-    L.blogW = Math.min(vw - 32 - L.lane, 560);
-    L.blogLeft = Math.round(vw + 14 + L.lane);
-    L.aboutW = Math.min(vw - 32 - L.lane, 560);
-    L.aboutLeft = 14 + L.lane;
-    L.collabsW = Math.min(vw - 32 - L.lane, 560);
-    L.collabsLeft = Math.round(vw * 4 + 14 + L.lane);
+    const pitch = Math.round(vw * 1.5);           // spread columns further apart than one screen
+    const listW = Math.min(vw - 32 - L.lane, 560);
+    L.heroW = Math.min(vw - 28, 560);
+    L.worldW = Math.round(pitch * 5);
+    L.homeX = Math.round(pitch * 2.5);
+    L.papersW = listW;   L.papersLeft = Math.round(pitch * 3 + 14 + L.lane);
+    L.blogW = listW;     L.blogLeft = Math.round(pitch * 1 + 14 + L.lane);
+    L.aboutW = listW;    L.aboutLeft = Math.round(pitch * 0 + 14 + L.lane);
+    L.collabsW = listW;  L.collabsLeft = Math.round(pitch * 4 + 14 + L.lane);
   } else {
     L.heroW = 920;
     L.worldW = 5700;
@@ -272,10 +270,10 @@ function layout() {
   hero.style.width = L.heroW + 'px';
   const heroH = hero.offsetHeight;
 
-  L.robotHome = { x: L.homeX, y: L.heroY + heroH + (compact ? 118 : 165) };
+  L.robotHome = { x: L.homeX, y: L.heroY + heroH + (compact ? 84 : 165) };
   const hint = $('#hero-hint');
   hint.style.left = (L.homeX - 160) + 'px';
-  hint.style.top = (L.robotHome.y + (compact ? 68 : 92)) + 'px';
+  hint.style.top = (L.robotHome.y + (compact ? 44 : 92)) + 'px';
 
   const ph = $('#papers-header'), bh = $('#blog-header'), ah = $('#about-header');
   const aboutList = $('#about-list');

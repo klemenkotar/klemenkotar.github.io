@@ -515,15 +515,9 @@ body.no-robot .fact-asset .asset-fallback { display: grid; }
 
 #collabs-list { position: absolute; }
 .collab-figure { margin: 0; }
+/* the cluster floats free on the page — no plot frame or grid */
 .figure-panel {
   position: relative;
-  background:
-    linear-gradient(rgba(35, 30, 20, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(35, 30, 20, 0.045) 1px, transparent 1px),
-    #fdfaf2;
-  background-size: 24px 24px, 24px 24px, auto;
-  border: 1px solid #d3c8ac;
-  border-radius: 10px;
 }
 .fig-caption {
   margin-top: 13px;
@@ -714,11 +708,3 @@ body.compact #theme-toggle { width: 32px; height: 32px; top: 12px; right: 12px; 
 :root[data-theme="dark"] #navbar button:hover,
 :root[data-theme="dark"] .nav-theme:hover,
 :root[data-theme="dark"] #navbar .nav-icons a:hover { background: rgba(255, 255, 255, 0.08); }
-:root[data-theme="dark"] .figure-panel {
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
-    #1b1c22;
-  background-size: 24px 24px, 24px 24px, auto;
-  border-color: #34353d;
-}
