@@ -46,11 +46,6 @@
   <symbol id="i-sun" viewBox="0 0 24 24"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-14a1 1 0 0 1 1 1v1.5a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1zm0 15a1 1 0 0 1 1 1v1.5a1 1 0 1 1-2 0V19a1 1 0 0 1 1-1zM4.5 11a1 1 0 1 1 0 2H3a1 1 0 1 1 0-2h1.5zm16.5 0a1 1 0 1 1 0 2h-1.5a1 1 0 1 1 0-2H21zM5.6 5.6a1 1 0 0 1 1.4 0l1 1a1 1 0 0 1-1.4 1.4l-1-1a1 1 0 0 1 0-1.4zm10.4 10.4a1 1 0 0 1 1.4 0l1 1a1 1 0 0 1-1.4 1.4l-1-1a1 1 0 0 1 0-1.4zm2.4-10.4a1 1 0 0 1 0 1.4l-1 1a1 1 0 1 1-1.4-1.4l1-1a1 1 0 0 1 1.4 0zM8 16a1 1 0 0 1 0 1.4l-1 1a1 1 0 0 1-1.4-1.4l1-1a1 1 0 0 1 1.4 0z"/></symbol>
 </svg>
 
-<button id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark">
-  <svg class="ic-moon" aria-hidden="true"><use href="#i-moon"/></svg>
-  <svg class="ic-sun" aria-hidden="true"><use href="#i-sun"/></svg>
-</button>
-
 <nav id="navbar" class="hidden" aria-label="Site">
   <a class="nav-logo" href="#" data-goto="home">
     <img src="assets/profile.jpg" alt="">
@@ -67,7 +62,16 @@
     <a href="https://scholar.google.com/citations?user=yIuzOOMAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar"><svg><use href="#i-scholar"/></svg></a>
     <a href="https://github.com/klemenkotar" target="_blank" rel="noopener" aria-label="GitHub"><svg><use href="#i-github"/></svg></a>
   </span>
+  <button class="theme-btn nav-theme" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle light / dark">
+    <svg class="ic-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+    <svg class="ic-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+  </button>
 </nav>
+
+<button id="theme-toggle" class="theme-btn" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle light / dark">
+  <svg class="ic-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+  <svg class="ic-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+</button>
 
 <div id="viewport">
   <div id="world">

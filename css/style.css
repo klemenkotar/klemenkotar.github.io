@@ -599,11 +599,17 @@ body.no-robot .fact-asset .asset-fallback { display: grid; }
 
 /* ── responsive: compact world on small screens ────────────────────────── */
 
-body.compact .hero { padding: 24px 22px 22px; border-radius: 22px; }
-body.compact .hero-top { flex-direction: column; align-items: flex-start; gap: 14px; margin-bottom: 12px; }
-body.compact .hero-pic { width: 108px; height: 108px; }
-body.compact .hero p { font-size: 15px; }
-body.compact .hero-actions { margin-top: 16px; }
+/* phones: compress the hero so the whole card + the robot fit one screen */
+body.compact .hero { padding: 16px 16px 15px; border-radius: 20px; }
+body.compact .hero-top { flex-direction: row; align-items: center; gap: 13px; margin-bottom: 9px; }
+body.compact .hero-pic { width: 72px; height: 72px; border-width: 2px; outline-width: 2px; }
+body.compact .hero h1 { font-size: 25px; margin-bottom: 3px; }
+body.compact .hero .tagline { font-size: 12.5px; }
+body.compact .hero p { font-size: 13.5px; line-height: 1.5; margin: 0 0 8px; }
+body.compact .hero-actions { margin-top: 12px; gap: 8px; }
+body.compact .btn { font-size: 14px; padding: 9px 15px; border-radius: 12px; }
+body.compact .hero-socials a { width: 34px; height: 34px; }
+body.compact .hero-socials svg { width: 18px; height: 18px; }
 body.compact .about-card p { font-size: 16.5px; line-height: 1.8; }
 /* phones: no room in the margins — small floats inside the column instead */
 body.compact .fact-asset { width: 86px; height: 86px; }
@@ -617,6 +623,11 @@ body.compact #navbar .nav-icons { display: none; }
 body.compact #navbar .nav-sep { display: none; }
 body.compact #navbar .nav-logo span { display: none; }   /* avatar only — keep the pill on one line */
 body.compact .section-header .sub { display: none; }     /* hover hint is meaningless on touch */
+/* keep the pill from overflowing a phone: smaller text + tighter spacing */
+body.compact #navbar { gap: 1px; padding: 5px 6px; max-width: calc(100vw - 16px); }
+body.compact #navbar button { font-size: 12px; padding: 6px 8px; }
+body.compact #navbar .nav-logo { padding: 2px 5px 2px 3px; }
+body.compact #navbar .nav-logo img { width: 22px; height: 22px; }
 
 /* ── reduced motion ────────────────────────────────────────────────────── */
 
@@ -636,31 +647,51 @@ noscript .ns {
 noscript .ns > div { max-width: 720px; margin: 0 auto; }
 
 /* ── theme toggle ──────────────────────────────────────────────────────────
-   A small, quiet icon button pinned top-right; always visible, above the
-   robot canvas. Moon in light mode, sun in dark mode. */
+   Moon in light mode, sun in dark mode. Two instances share .theme-btn:
+   a floating one (desktop + the mobile home screen) and one folded into the
+   navbar on phones so the bar carries it once you leave home. */
+.theme-btn {
+  display: grid; place-items: center;
+  padding: 0;
+  color: var(--muted);
+  cursor: pointer;
+  appearance: none;
+}
+.theme-btn:hover { color: var(--ink); }
+.theme-btn svg { width: 18px; height: 18px; fill: currentColor; display: block; }
+.theme-btn .ic-sun { display: none; }
+:root[data-theme="dark"] .theme-btn .ic-moon { display: none; }
+:root[data-theme="dark"] .theme-btn .ic-sun { display: block; }
+
 #theme-toggle {
   position: fixed;
   top: 16px; right: 16px;
   z-index: 101;
   width: 34px; height: 34px;
-  display: grid; place-items: center;
-  padding: 0;
   border-radius: 50%;
   border: 1px solid var(--line);
   background: rgba(255, 253, 248, 0.72);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  color: var(--muted);
-  cursor: pointer;
   box-shadow: var(--shadow);
   transition: color 0.15s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.15s ease;
 }
-#theme-toggle:hover { color: var(--ink); transform: rotate(-18deg); }
-#theme-toggle svg { width: 18px; height: 18px; fill: currentColor; display: block; }
-#theme-toggle .ic-sun { display: none; }
-:root[data-theme="dark"] #theme-toggle .ic-moon { display: none; }
-:root[data-theme="dark"] #theme-toggle .ic-sun { display: block; }
-body.compact #theme-toggle { width: 32px; height: 32px; top: 14px; right: 12px; }
+#theme-toggle:hover { transform: rotate(-18deg); }
+
+/* in-navbar toggle: phones only, styled like a nav icon */
+.nav-theme {
+  display: none;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+}
+.nav-theme svg { width: 17px; height: 17px; }
+.nav-theme:hover { background: rgba(35, 30, 20, 0.06); }
+body.compact #navbar .nav-theme { display: grid; }
+/* once the bar is up on a phone, it carries the toggle — retire the floating one */
+body.compact #navbar:not(.hidden) ~ #theme-toggle { display: none; }
+body.compact #theme-toggle { width: 32px; height: 32px; top: 12px; right: 12px; }
 
 /* ── dark-mode element overrides ───────────────────────────────────────────
    Everything colour-driven flips through the variables above; these handle
@@ -681,6 +712,7 @@ body.compact #theme-toggle { width: 32px; height: 32px; top: 14px; right: 12px; 
 :root[data-theme="dark"] .btn-secondary:hover { background: rgba(255, 255, 255, 0.06); }
 :root[data-theme="dark"] #navbar { background: rgba(28, 29, 35, 0.82); }
 :root[data-theme="dark"] #navbar button:hover,
+:root[data-theme="dark"] .nav-theme:hover,
 :root[data-theme="dark"] #navbar .nav-icons a:hover { background: rgba(255, 255, 255, 0.08); }
 :root[data-theme="dark"] .figure-panel {
   background:

@@ -221,7 +221,21 @@ export const BLOGS = [
 // workshop papers). Plain author strings only — these feed the collaborator
 // universe (bubble sizes + who appears) without cluttering the curated list.
 export const MORE_COAUTHORSHIPS = [
-  // filled in from Google Scholar (2026-08); see COLLABS for the people
+  // filled in from Google Scholar (2026-08); see COLLABS for the people.
+  // NeurIPS 2025 — Self-Supervised Learning of Motion Concepts by Optimizing Counterfactuals
+  'Stefan Stojanov, David Wendt, Seungwoo Kim, Rahul Venkatesh, Kevin T. Feigelis, Klemen Kotar, Khai Loong Aw, Jiajun Wu, Daniel L. K. Yamins',
+  // A biologically plausible route to learn 3D perception
+  'Wanhee Lee, Jared Watrous, Honglin Chen, Klemen Kotar, Tyler Bonnen, Daniel L. K. Yamins',
+  // Modeling Focal Synaptic Degeneration and Neural Plasticity in Ventral Visual Cortex
+  'Yash Shah, Kevin Tran, Klemen Kotar, Daniel L. K. Yamins',
+  // CCN — Are ViTs as Global as We Think? Assessing Model Locality for Brain-Model Mapping
+  'Fangrui Huang, Klemen Kotar, Wanhee Lee, Rosa Cao, Daniel L. K. Yamins',
+  // CCN — Learning Language by Listening: A Computational Learnability Account
+  'Greta Tuckute, Klemen Kotar, Daniel L. K. Yamins, Talia Konkle',
+  // CCN — VAST: Visual Abstractions as Streams of Thought
+  'Khai Loong Aw, Klemen Kotar, Baihan Zhang, Yunong Liu, Liliang Chen, Rahul Venkatesh, Atlas Kazemian, Wanhee Lee, Daniel L. K. Yamins',
+  // CCN — Unifying Discrimination and Generation in One Architecture
+  'Imran Thobani, Klemen Kotar, Jared Watrous, Andreas S. Tolias, Daniel L. K. Yamins',
 ];
 
 // Collaborators section: circle size scales with number of shared papers.
@@ -256,6 +270,7 @@ export const COLLABS = [
   { name: 'Imran Thobani', slug: 'imran', cluster: 'neuroai', url: 'https://imranthobani.com/', aliases: ['Imran Thobani'] },
   { name: 'Atlas Kazemian', slug: 'atlas', cluster: 'neuroai', url: 'https://akazemian.github.io/personal_profile/', aliases: ['Atlas Kazemian'] },
   { name: 'Ashley Xu', slug: 'ashley', trainee: true, cluster: 'neuroai', url: 'https://www.linkedin.com/in/ashley-xu-a2588b1a9', aliases: ['Ashley Xu'] },
+  { name: 'Yash Shah', slug: 'yash', cluster: 'neuroai', url: 'https://ynshah3.github.io/', aliases: ['Yash Shah'] },
   // ── Stanford vision / CogAI ──
   { name: 'Jiajun Wu', slug: 'jiajun', cluster: 'cogai', url: 'https://jiajunwu.com', aliases: ['Jiajun Wu'] },
   { name: 'Stephen Tian', slug: 'tian', cluster: 'cogai', url: 'https://s-tian.github.io/', aliases: ['Stephen Tian'] },
@@ -263,11 +278,14 @@ export const COLLABS = [
   { name: 'Juan Carlos Niebles', slug: 'niebles', cluster: 'cogai', url: 'https://www.niebles.net/', aliases: ['Juan Carlos Niebles'] },
   { name: 'Cristobal Eyzaguirre', slug: 'cristobal', cluster: 'cogai', url: 'https://ceyzaguirre4.github.io/', aliases: ['Cristobal Eyzaguirre'] },
   { name: 'Yunong Liu', slug: 'yunong', cluster: 'cogai', url: 'https://yunongliu.com/', aliases: ['Yunong Liu'] },
+  { name: 'Andreas Tolias', slug: 'tolias', cluster: 'cogai', url: 'https://toliaslab.org/', aliases: ['Andreas S. Tolias', 'Andreas Tolias'] },
   // ── CogSci ──
   { name: 'Michael Frank', slug: 'frank', cluster: 'cogsci', url: 'https://web.stanford.edu/~mcfrank/', aliases: ['Michael C. Frank'] },
   { name: 'Kevin Smith', slug: 'ksmith', cluster: 'cogsci', url: 'https://www.mit.edu/~k2smith/', aliases: ['Kevin A. Smith'] },
   { name: 'Judith Fan', slug: 'jfan', cluster: 'cogsci', url: 'https://cogtoolslab.github.io/', aliases: ['Judith E. Fan'] },
   { name: 'Felix Binder', slug: 'binder', cluster: 'cogsci', url: 'https://felixbinder.net/', aliases: ['Felix Binder'] },
+  { name: 'Tyler Bonnen', slug: 'bonnen', cluster: 'cogsci', url: 'https://tzler.github.io/', aliases: ['Tyler Bonnen'] },
+  { name: 'Talia Konkle', slug: 'konkle', cluster: 'cogsci', url: 'https://konklab.fas.harvard.edu/', aliases: ['Talia Konkle'] },
   // ── MIT language ──
   { name: 'Greta Tuckute', slug: 'greta', cluster: 'mitlang', url: 'http://www.tuckute.com', aliases: ['Greta Tuckute'] },
   { name: 'Ev Fedorenko', slug: 'fedorenko', cluster: 'mitlang', url: 'https://www.evlab.mit.edu/', aliases: ['Evelina Fedorenko'] },

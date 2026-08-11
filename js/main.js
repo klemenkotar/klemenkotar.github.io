@@ -231,6 +231,9 @@ function layout() {
   const vw = innerWidth, vh = innerHeight;
   const compact = vw < 780;
   document.body.classList.toggle('compact', compact);
+  // the full word makes the pill overflow a phone; shorten it there
+  const collabBtn = navbar.querySelector('button[data-goto="collabs"]');
+  if (collabBtn) collabBtn.textContent = compact ? 'Collabs' : 'Collaborators';
 
   const L = {};
   L.compact = compact;
@@ -517,6 +520,7 @@ function goTo(name, { instant = false } = {}) {
   const L = state.layout;
   if (!L || !L.docks[name]) return;
   state.section = name;
+  state.flingVY = 0;                                 // navigation cancels any scroll glide
   poke();
   history.replaceState(null, '', name === 'home' ? location.pathname : '#' + name);
   navbar.querySelectorAll('button[data-goto]').forEach(b => b.classList.toggle('active', b.dataset.goto === name));
@@ -622,14 +626,15 @@ function poke() {
 
 function setupTheme() {
   const root = document.documentElement;
-  const btn = $('#theme-toggle');
   const apply = (t, persist) => {
     root.setAttribute('data-theme', t);
     if (persist) { try { localStorage.setItem('theme', t); } catch {} }
   };
-  btn?.addEventListener('click', () => {
-    apply(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
-  });
+  // both the floating (desktop) and the in-navbar (mobile) toggles share this
+  document.querySelectorAll('[data-theme-toggle]').forEach(btn =>
+    btn.addEventListener('click', () => {
+      apply(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
+    }));
   // follow the OS setting until the visitor makes an explicit choice
   matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', e => {
     let saved = null;
@@ -663,7 +668,8 @@ function setupInput() {
     // may start anywhere, like native scrolling — taps stay intact via the
     // movement threshold, and suppressClick swallows post-pan activations.
     if (e.pointerType === 'mouse' && e.target.closest('a, button, .card, .hero, .section-header')) return;
-    drag = { id: e.pointerId, x: e.clientX, y: e.clientY, moved: false };
+    drag = { id: e.pointerId, x: e.clientX, y: e.clientY, moved: false, t: performance.now(), vy: 0 };
+    state.flingVY = 0;                                // a fresh touch stops any glide
     try { viewport.setPointerCapture(e.pointerId); } catch {}
   });
   viewport.addEventListener('pointermove', e => {
@@ -678,11 +684,18 @@ function setupInput() {
     if (!state.layout.compact) state.target.x -= dx / state.cam.zoom;   // phones scroll vertically only
     state.target.y -= dy / state.cam.zoom;
     clampTarget(state.target);
+    const tnow = performance.now(), mdt = tnow - (drag.t || tnow);
+    if (state.layout.compact && mdt > 0) drag.vy = (-dy / state.cam.zoom) / mdt * 1000;  // map px/s
+    drag.t = tnow;
     drag.x = e.clientX; drag.y = e.clientY;
   });
   const endDrag = e => {
     if (!drag || (e && e.pointerId !== drag.id)) return;
     if (drag.moved) { suppressClick = true; setTimeout(() => { suppressClick = false; }, 120); }
+    // momentum: keep gliding after a phone flick
+    if (drag.moved && state.layout?.compact && drag.vy && performance.now() - (drag.t || 0) < 90) {
+      state.flingVY = Math.max(-5000, Math.min(5000, drag.vy));
+    }
     drag = null;
     viewport.classList.remove('dragging');
   };
@@ -811,6 +824,14 @@ function loop(now) {
     clampTarget(state.target);
   }
 
+  // phone flick momentum: glide the target, decaying, until the clamp below reins it in
+  if (state.flingVY && state.camMode === 'free' && state.layout?.compact) {
+    state.target.y += state.flingVY * dt;
+    state.flingVY *= Math.exp(-dt * 4.5);
+    if (Math.abs(state.flingVY) < 40) state.flingVY = 0;
+    clampTarget(state.target);
+  }
+
   // camera discipline while free-scrolling
   if (state.camMode === 'free' && state.layout) {
     const Lf = state.layout;
@@ -851,8 +872,10 @@ function loop(now) {
     }
   }
 
-  // smooth camera
-  const s = 1 - Math.exp(-dt * (state.camMode === 'follow' ? 3.2 : 4.5));
+  // smooth camera — phones track the finger much more tightly so scrolling
+  // feels immediate instead of laggy
+  const smoothRate = state.camMode === 'follow' ? 3.2 : (state.layout?.compact ? 13 : 4.5);
+  const s = 1 - Math.exp(-dt * smoothRate);
   state.cam.x += (state.target.x - state.cam.x) * s;
   state.cam.y += (state.target.y - state.cam.y) * s;
   state.cam.zoom += ((state.target.zoom ?? 1) - state.cam.zoom) * s * 0.8;
