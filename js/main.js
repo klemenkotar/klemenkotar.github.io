@@ -939,6 +939,7 @@ async function boot() {
   state.cam = { x: state.layout.frames.home.x, y: state.layout.frames.home.y, zoom: 1 };
   state.target = { ...state.cam, zoom: 1 };
   applyCamera();
+  document.body.classList.add('laid-out');   // reveal now that everything is positioned
   requestAnimationFrame(loop);
 
   try { await Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1800))]); } catch {}
@@ -986,6 +987,8 @@ async function boot() {
   }
 }
 
+// safety net: never leave the page blank if boot hiccups before the reveal
+setTimeout(() => document.body.classList.add('laid-out'), 4000);
 boot();
 
 // debug/testing handle (harmless in production)

@@ -81,7 +81,11 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
     radial-gradient(var(--dot) 1.5px, transparent 1.8px);
   background-size: 30px 30px;
   will-change: transform;
+  /* hidden until the first layout runs, so there's no flash of the
+     unpositioned page — the theme-coloured body shows through meanwhile */
+  opacity: 0;
 }
+body.laid-out #world { opacity: 1; transition: opacity 0.25s ease; }
 
 #roads, #treads {
   position: absolute;
