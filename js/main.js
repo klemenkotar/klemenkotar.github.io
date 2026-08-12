@@ -358,12 +358,15 @@ function layout() {
   };
 
   // ── camera frames per section ──
+  // compact frames follow the real list column (centered on the text, with just
+  // the robot lane peeking on the far left); desktop keeps its own offset
+  const colFrameX = (left, w) => Math.round(left + (w - L.lane) / 2);
   L.frames = {
     home: { x: L.homeX, y: frameY(L.heroY - 60, L.robotHome.y + 110, vh) },
-    papers: { x: compact ? Math.round(vw * 3.5) : L.papersLeft + (L.papersW - 130) / 2, y: frameY(headerY - 70, headerY + vh, vh) },
-    blog: { x: compact ? Math.round(vw * 1.5) : L.blogLeft + (L.blogW - 130) / 2, y: frameY(headerY - 70, headerY + vh, vh) },
-    about: { x: compact ? Math.round(vw * 0.5) : L.aboutLeft + (L.aboutW - 130) / 2, y: frameY(aboutHeaderY - 70, aboutHeaderY + vh, vh) },
-    collabs: { x: compact ? Math.round(vw * 4.5) : L.collabsLeft + (L.collabsW - 130) / 2, y: frameY(collabsHeaderY - 70, collabsHeaderY + vh, vh) },
+    papers: { x: compact ? colFrameX(L.papersLeft, L.papersW) : L.papersLeft + (L.papersW - 130) / 2, y: frameY(headerY - 70, headerY + vh, vh) },
+    blog: { x: compact ? colFrameX(L.blogLeft, L.blogW) : L.blogLeft + (L.blogW - 130) / 2, y: frameY(headerY - 70, headerY + vh, vh) },
+    about: { x: compact ? colFrameX(L.aboutLeft, L.aboutW) : L.aboutLeft + (L.aboutW - 130) / 2, y: frameY(aboutHeaderY - 70, aboutHeaderY + vh, vh) },
+    collabs: { x: compact ? colFrameX(L.collabsLeft, L.collabsW) : L.collabsLeft + (L.collabsW - 130) / 2, y: frameY(collabsHeaderY - 70, collabsHeaderY + vh, vh) },
   };
 
   // ── rubber-band bounds: the camera hovers back to the list column ──

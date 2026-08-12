@@ -16,6 +16,7 @@
   --cyan: #2fb8cf;
   --on-ink: #fff;                       /* text/icons on top of an --ink fill */
   --dot: rgba(35, 30, 20, 0.07);        /* the map's dotted paper texture */
+  --trainee-ring: #1b1d23;              /* ring marking a trainee bubble */
   --shadow: 0 1px 2px rgba(35, 30, 20, 0.05), 0 8px 24px rgba(35, 30, 20, 0.07);
   --shadow-lift: 0 2px 4px rgba(35, 30, 20, 0.06), 0 14px 34px rgba(35, 30, 20, 0.12);
   --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
@@ -38,6 +39,7 @@
   --cyan: #45c8dd;
   --on-ink: #16171c;
   --dot: rgba(255, 249, 236, 0.05);
+  --trainee-ring: #ffca66;              /* warm gold reads clearly on the dark page */
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.5);
   --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.45), 0 16px 36px rgba(0, 0, 0, 0.62);
 }
@@ -527,8 +529,9 @@ body.no-robot .fact-asset .asset-fallback { display: grid; }
   max-width: 860px;
 }
 .fig-caption b { font-weight: 700; }
-/* trainees get a high-contrast outline */
-.bubble.trainee .face { outline: 2.5px solid var(--ink); }
+/* trainees get a high-contrast ring, offset slightly off the white border so
+   it stays legible in dark mode too */
+.bubble.trainee .face { outline: 3px solid var(--trainee-ring); outline-offset: 1.5px; }
 .bubble {
   position: absolute;
   display: block;
